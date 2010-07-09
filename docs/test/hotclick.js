@@ -1,16 +1,15 @@
-function hotclick_click(event) {
-	console.log(event, event.clientX, event.clientY);
-	console.log(event.currentTarget, event.originalTarget.href);
+function hotclick_click(e) {
+    // only pay attention on left click
+	if( e.button != 0 ){
+		return;
+	}
+
+	console.log(e, e.clientX, e.clientY);
+	console.log(e.originalTarget, e.currentTarget);
 }
 
 function hotclick_listener(clickurl) {
-	/** Add onmousedown event using listeners */
-	if (document.addEventListener)
-	{
-		document.addEventListener('mousedown', hotclick_click, false);
-	}
-	else if (document.attachEvent)
-	{
-		document.attachEvent('onmousedown', hotclick_click);
-	}
+    // mouseup is when the effective click is registered
+	document.addEventListener && document.addEventListener('mouseup', hotclick_click, false);
+	document.attachEvent && document.attachEvent('onmouseup', hotclick_click);
 }
