@@ -16,9 +16,9 @@ urlpatterns = patterns('',
 	(r'^admin/', include(admin.site.urls)),
 
 	# click
-	(r'^click/' include('hotclick.click.urls')),
+	(r'^click/', include('hotclick.click.urls')),
 	# reports
-	(r'^reports/' include('hotclick.reports.urls')),
+	(r'^reports/', include('hotclick.reports.urls')),
 	# heat
-	(r'^heat/' include('hotclick.heat.urls')),
+	(r'^heat/', include('hotclick.heat.urls')),
 )
