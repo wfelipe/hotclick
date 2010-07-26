@@ -25,8 +25,8 @@
 			var e = h.fixEvent( event ),
 					opt = {
 						platform: navigator.platform,
-						x: e.clientX,
-						y: e.clientY
+						x: e.pageX || ( e.clientX + ( document.documentElement.scrollLeft || document.body.scrollLeft ) ),
+						y: e.pageY || ( e.clientY + ( document.documentElement.scrollTop	|| document.body.scrollTop ) )
 					};
 
 			// ignore right click
