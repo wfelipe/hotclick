@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns(''
+urlpatterns = patterns('',
+	(r'^', 'hotclick.click.views.process_click'),
 )
