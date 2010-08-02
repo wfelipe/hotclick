@@ -5,5 +5,5 @@ import datetime
 class Click(models.Model):
 	x = models.IntegerField(null=False)
 	y = models.IntegerField(null=False)
-	url = models.CharField(max_length=255, null=True)
+	link = models.CharField(max_length=255, null=True)
 	timestamp = models.DateTimeField(default=datetime.datetime.now)

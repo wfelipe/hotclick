@@ -9,7 +9,9 @@
 
 	var h = window.HotClick = {
 		debug: 1,
-		init: function(){
+		init: function(clickurl){
+			this.clickurl = clickurl || '';
+
 			this.event();
 
 			this.ajax();
@@ -36,7 +38,7 @@
 
 			opt.link = escape( h.link(e) );
 
-			h.req('?'+ [
+			h.req(this.clickurl + '?' + [
 				'x='+ opt.x,
 				'y='+ opt.y,
 				'link='+ opt.link
