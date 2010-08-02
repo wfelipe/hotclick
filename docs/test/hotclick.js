@@ -38,7 +38,7 @@
 
 			opt.link = escape( h.link(e) );
 
-			h.req(this.clickurl + '?' + [
+			h.req(h.clickurl + '?' + [
 				'x='+ opt.x,
 				'y='+ opt.y,
 				'link='+ opt.link
