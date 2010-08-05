@@ -9,6 +9,7 @@
 
 	var h = window.HotClick = {
 		debug: 1,
+		linkRecursion: 10,
 		init: function(clickurl){
 			this.clickurl = clickurl || '';
 
@@ -26,7 +27,9 @@
 		click: function(event){
 			var e = h.fixEvent( event ),
 					opt = {
+						type: e.target.tagName,
 						platform: navigator.platform,
+						link: escape( h.findLink( event.target ) || '' ),
 						x: e.pageX || ( e.clientX + ( document.documentElement.scrollLeft || document.body.scrollLeft ) ),
 						y: e.pageY || ( e.clientY + ( document.documentElement.scrollTop	|| document.body.scrollTop ) )
 					};
@@ -36,13 +39,29 @@
 				return false;
 			}
 
-			opt.link = escape( h.link(e) );
+			log( 'click:', opt );
 
 			h.req(h.clickurl + '?' + [
 				'x='+ opt.x,
 				'y='+ opt.y,
 				'link='+ opt.link
 			].join('&') );
+
+			return false;
+		},
+		findLink: function(element,recursion){
+			// use the default max
+			recursion = recursion || this.linkRecursion;
+
+			log( 'findLink: ', element, recursion );
+
+			if( element.tagName == 'BODY' || element.parentNode.tagName == 'BODY' || recursion == 0  ){
+				return false;
+			} else if( element.parentNode.tagName == 'A' ){
+				return element.parentNode.href;
+			} else {
+				return this.findLink( element.parentNode, --recursion );
+			}
 		},
 		fixEvent: function(event){
 			// Fix target property, if necessary
@@ -62,10 +81,6 @@
 			}
 
 			return event;
-		},
-		link: function(e){
-			return e.target.tagName == 'A'
-				? e.target.href : ''
 		},
 		ajax: function(){
 			if( window.XMLHttpRequest && !window.ActiveXObject ){
