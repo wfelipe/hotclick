@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from hotclick.click.models import *
 
 def process_click(request):
@@ -8,7 +8,7 @@ def process_click(request):
 		return HttpResponse('NOT OK - Referer')
 	try:
 		click.site = Site.objects.get(url=request.META['HTTP_REFERER'])
-	except DoesNotExist:
+	except Site.DoesNotExist:
 		return HttpResponse('Site does not exist')
 
 	for attr in request.GET:
