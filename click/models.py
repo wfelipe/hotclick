@@ -3,10 +3,16 @@ import datetime
 
 class Site(models.Model):
 	name = models.CharField(max_length=255, null=False)
-	url = models.CharField(max_length=255, null=False, unique=True)
 
 	def __unicode__(self):
 		return self.name
+
+class SiteURL(models.Model):
+	url = models.CharField(max_length=255, null=False, unique=True)
+	site = models.ForeignKey('Site', null=False)
+
+	def __unicode__(self):
+		return self.url
 
 class Click(models.Model):
 	x = models.IntegerField(null=False)
@@ -14,4 +20,4 @@ class Click(models.Model):
 	link = models.CharField(max_length=255, null=True)
 	timestamp = models.DateTimeField(default=datetime.datetime.now)
 
-	site = models.ForeignKey('Site', null=False)
+	siteurl = models.ForeignKey('SiteURL', null=False)

@@ -7,10 +7,11 @@ def process_click(request):
 	if not 'HTTP_REFERER' in request.META:
 		return HttpResponse('NOT OK - Referer')
 	try:
-		click.site = Site.objects.get(url=request.META['HTTP_REFERER'])
-	except Site.DoesNotExist:
+		click.siteurl = SiteURL.objects.get(url=request.META['HTTP_REFERER'])
+	except SiteURL.DoesNotExist:
 		return HttpResponse('Site does not exist')
 
+	print request.GET
 	for attr in request.GET:
 		if hasattr(click, attr):
 			setattr(click, attr, request.GET[attr])
